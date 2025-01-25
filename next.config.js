@@ -14,6 +14,7 @@ const ContentSecurityPolicy = `
   connect-src *;
   font-src 'self';
   frame-src giscus.app
+  frame-ancestors 'self' https://yubrajkhatri.com.np; 
 `
 
 const securityHeaders = [
@@ -31,6 +32,10 @@ const securityHeaders = [
   {
     key: 'X-Frame-Options',
     value: 'DENY',
+  },
+  {
+    key: 'X-Frame-Options',
+    value: 'ALLOWALL', // Allows embedding by any domain (less secure)
   },
   // https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Content-Type-Options
   {
