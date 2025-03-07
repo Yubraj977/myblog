@@ -1,0 +1,134 @@
+---
+title: Hosting a Docker Container Locally and on the Web
+date: '2025-03-06'
+tags: ['docker', 'hosting', 'self-hosting']
+draft: false
+# layout: PostBanner
+images: ['/static/images/canada/mountains.jpg', '/static/images/canada/toronto.jpg']
+summary: Learn how to host a website using Docker on your local machine and expose it to the web using Ngrok or port forwarding.
+authors: ['default', ]
+imgg: '/static/images/canada/mountains.jpg'
+---
+
+{/* ![tailwind-nextjs-banner](https://asset.cloudinary.com/dadjly4lb/b4dd3ad846958c29209133173ab47a94) */}
+<img 
+  src="https://images.unsplash.com/photo-1506399558188-acca6f8cbf41?q=80&w=3673&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" 
+  width={400} 
+  height={200} 
+  alt="Tailwind Next.js Banner"
+  style={{ objectFit: "contain", display: "block" , }} 
+/>
+
+
+
+## Introduction
+
+Nowadays, there are many ways to host a website online using different hosting providers. However, if you want to host your website on your own machine, this guide will walk you through the process using Docker.
+
+For this tutorial, we will use the [**AI Education Pilot**](https://github.com/SUNY-Brockport-ACM-Student-Chapter/AI-Education-Pilot) project from GitHub and set it up on a local machine.
+
+## Setting Up the Project Locally
+
+[Click here](https://github.com/SUNY-Brockport-ACM-Student-Chapter/AI-Education-Pilot) for documentation on how to set up the project locally.
+
+When running the project on a local machine, you will see three URLs. Let's examine what each one means.
+<img 
+  src="https://res.cloudinary.com/dadjly4lb/image/upload/v1741321194/Screenshot_2025-03-04_at_5.05.02_PM_f4namu.png" 
+  width={900} 
+  height={200} 
+  alt="SS of links"
+  style={{ objectFit: "contain", display: "block" , }} 
+/>
+
+## Understanding Local and External URLs
+
+
+![hello](https://res.cloudinary.com/dadjly4lb/image/upload/v1741321653/Untitled-2024-10-29-2038_ribuiu.png)
+### What Happens When You Visit `http://localhost:8501`?
+1. Your browser sends a request to your own computer on port **8501**.
+2. Streamlit’s built-in web server receives the request and serves the app.
+3. The browser displays your Streamlit app.
+![hello](https://res.cloudinary.com/dadjly4lb/image/upload/v1741321653/Screenshot_2025-03-04_at_5.26.42_PM_thkz75.png)
+### What the External URL Means
+The external URL is similar to the local URL but uses a public IP address instead of `localhost`. 
+
+- If you use your machine's **public IP address**, it allows access from other devices on the same network (Wi-Fi or Ethernet).
+- The request still goes through various network layers (ISP, routers, firewalls, etc.).
+
+
+### What Happens When You Visit an External URL?
+1. **Your Browser Sends a Request** 
+   - The browser sends an HTTP request to `137.21.143.72:8501`.
+   - Example request:
+     ```
+     GET / HTTP/1.1
+     Host: 137.21.143.72:8501
+     ```
+2. **The Request Travels Over the Internet**
+   - The request passes through routers, ISP, and firewalls.
+   - If you are on the same local network, the request may not leave the network.
+3. **The Server Receives the Request**
+   - Your computer running Streamlit listens on port **8501**.
+   - Streamlit processes the request and generates a response.
+4. **The Server Sends a Response**
+   - The server sends an HTML page with JavaScript and other assets to the browser.
+5. **The Browser Displays the Webpage**
+   - The browser renders the Streamlit app.
+   - Any user with access to the **External URL** can interact with the app (if network settings allow).
+
+## Hosting the Website Publicly
+If someone outside your network wants to access your website, you have two main options:
+
+### Method 1: Using Ngrok
+#### What is Ngrok?
+Ngrok is a globally distributed reverse proxy that secures, protects, and accelerates applications.
+
+#### How Does It Work?
+- Ngrok operates a **global network of servers** (Ngrok Edge) that accept traffic on your behalf.
+- A small **Ngrok agent** runs alongside your service and connects securely to the Ngrok Edge.
+- Ngrok tunnels your local port to a **publicly accessible URL**.
+
+For more info [refer documentation](https://ngrok.com/docs/) 
+#### Steps to Set Up Ngrok
+1. Visit [Ngrok](https://ngrok.com/) and **sign up or log in**.
+2. Follow the setup documentation for your system.
+3. Install Ngrok:
+   ```sh
+   brew install ngrok  # (For macOS using Homebrew)
+   ```
+4. Authenticate Ngrok with your token:
+   ```sh
+   ngrok config add-authtoken YOUR_AUTH_TOKEN
+   ```
+5. Start an Ngrok tunnel:
+   ```sh
+   ngrok http 8501
+   ```
+6. Ngrok will provide a **forwarding URL**, which can be used to access your website publicly.
+
+![Ngrok running](https://res.cloudinary.com/dadjly4lb/image/upload/v1741321952/Screenshot_2025-03-05_at_4.33.51_PM_tfhpka.png)
+### Method 2: Using Port Forwarding(written in more detial in future dates)
+If you have a **router with a public IP address**, you can expose your local machine to the internet.
+
+#### Steps to Set Up Port Forwarding 
+1. **Assign a Static Local IP to Your Machine**
+   - Go to your router settings (`192.168.1.1`).
+   - Find **DHCP Reservation** or **Static IP settings**.
+   - Assign a **static IP** (e.g., `192.168.1.50`).
+2. **Enable Port Forwarding on Your Router**
+   - Find **Port Forwarding** settings.
+   - Forward external traffic from port **8501** to `192.168.1.50:8501`.
+   - This allows incoming requests to reach your local server.
+3. **Find Your Public IP Address**
+   - Visit [WhatIsMyIP](https://www.whatismyip.com/).
+   - Example: `http://137.21.143.72:8501`
+4. **Handle Dynamic IP Issues (Optional: Use No-IP or DuckDNS)**
+   - Most ISPs **change public IPs** over time.
+   - Use **No-IP** or **DuckDNS** to get a static domain (e.g., `myhomepc.duckdns.org`).
+   - Install their **DDNS client** to auto-update your domain when your public IP changes.
+
+Now, instead of using `http://137.21.143.72:8501`, you can access your site at `http://myhomepc.duckdns.org:8501`!
+
+## Conclusion
+This guide provides step-by-step instructions on hosting a Streamlit-based website using Docker and making it accessible locally and publicly through Ngrok or port forwarding. Follow the method that best suits your needs and network environment.
+
