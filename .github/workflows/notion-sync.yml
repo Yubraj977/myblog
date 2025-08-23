@@ -1,10 +1,7 @@
 name: Sync Notion to Blog
 
 on:
-  schedule:
-    # Run every 30 minutes
-    - cron: '*/30 * * * *'
-  workflow_dispatch: # Allow manual trigger
+  workflow_dispatch: # Allow manual trigger only
 
 jobs:
   sync:
@@ -46,15 +43,5 @@ jobs:
           else
             git commit --no-verify -m "✨ Auto-sync blog posts from Notion"
             git push origin master
+            echo "✅ Changes pushed to repository. Vercel will auto-deploy."
           fi
-
-      - name: Trigger Pages Build
-        if: success()
-        uses: actions/github-script@v7
-        with:
-          script: |
-            github.rest.actions.createWorkflowDispatch({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              workflow_id: 'pages.yml'
-            })
