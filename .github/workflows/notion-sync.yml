@@ -38,12 +38,12 @@ jobs:
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
-          git add data/blog/
+          git add data/blog/ app/tag-data.json
           
           # Check if there are changes to commit
           if git diff --staged --quiet; then
             echo "No changes to commit"
           else
-            git commit -m "✨ Auto-sync blog posts from Notion"
+            git commit --no-verify -m "✨ Auto-sync blog posts from Notion"
             git push origin master
           fi
