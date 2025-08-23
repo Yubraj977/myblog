@@ -1,10 +1,18 @@
 {
+  "inspiration": 1,
+  "movie": 1,
+  "technology": 1,
   "dfe": 1,
   "docker": 1,
   "hosting": 1,
   "self-hosting": 1,
-  "software": 1,
-  "reliability": 1,
-  "ai": 1,
-  "quality-assurance": 1
+  "software-reliability": 1,
+  "critical-systems": 1,
+  "ai-testing": 1,
+  "quality-assurance": 1,
+  "software-engineering": 1,
+  "bug-detection": 1,
+  "system-failures": 1,
+  "healthcare-software": 1,
+  "financial-systems": 1
 }
