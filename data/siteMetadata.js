@@ -1,13 +1,13 @@
 /** @type {import("pliny/config").PlinyConfig } */
 const siteMetadata = {
-  title: 'Yubraj Khatri personal blog',
+  title: 'Yubraj Khatri - Software Engineer & Tech Writer',
   author: 'Yubraj Khatri',
   headerTitle: 'Yublog',
-  description: 'A blog created with Next.js and Tailwind.css',
+  description:
+    'Software engineering insights, reliability systems, AI solutions, and critical system analysis by Yubraj Khatri. Deep dives into software quality, system architecture, and modern development practices.',
   language: 'en-us',
   theme: 'system', // system, dark or light
-  siteUrl: 'https://tailwind-nextjs-starter-blog.vercel.app',
-  siteRepo: 'https://github.com/timlrx/tailwind-nextjs-starter-blog',
+  siteUrl: 'https://blog.yubrajkhatri.com.np',
   siteLogo: `${process.env.BASE_PATH || ''}/static/images/logo.png`,
   socialBanner: `${process.env.BASE_PATH || ''}/static/images/twitter-card.png`,
   mastodon: 'https://mastodon.social/@mastodonuser',
@@ -29,6 +29,9 @@ const siteMetadata = {
     // If you want to use an analytics provider you have to add it to the
     // content security policy in the `next.config.js` file.
     // supports Plausible, Simple Analytics, Umami, Posthog or Google Analytics.
+    googleAnalytics: {
+      googleAnalyticsId: process.env.NEXT_PUBLIC_GA_ID, // Add your GA4 ID to .env file
+    },
     umamiAnalytics: {
       // We use an env variable for this site to avoid other users cloning our analytics ID
       umamiWebsiteId: process.env.NEXT_UMAMI_ID, // e.g. 123e4567-e89b-12d3-a456-426614174000
@@ -44,9 +47,6 @@ const siteMetadata = {
     // simpleAnalytics: {},
     // posthogAnalytics: {
     //   posthogProjectApiKey: '', // e.g. 123e4567-e89b-12d3-a456-426614174000
-    // },
-    // googleAnalytics: {
-    //   googleAnalyticsId: '', // e.g. G-XXXXXXX
     // },
   },
   newsletter: {

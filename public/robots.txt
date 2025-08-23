@@ -1,0 +1,21 @@
+User-agent: *
+Allow: /
+
+# Block access to admin and private areas
+Disallow: /api/
+Disallow: /admin/
+Disallow: /_next/
+Disallow: /404
+Disallow: /500
+
+# Allow search engines to access important files
+Allow: /static/
+Allow: /images/
+Allow: /*.css
+Allow: /*.js
+
+# Sitemap location
+Sitemap: https://blog.yubrajkhatri.com.np/sitemap.xml
+
+# Crawl delay (optional - helps with server load)
+Crawl-delay: 1
