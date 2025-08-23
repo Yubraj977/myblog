@@ -32,13 +32,15 @@ export default function Home({ posts }) {
                       <dt className="sr-only">Published on</dt>
                       <dd className="text-base font-medium leading-6 text-gray-500 dark:text-gray-400">
                         <time dateTime={date}>{formatDate(date, siteMetadata.locale)}</time>
-                        <Image
-                          className="m-4 rounded-md"
-                          src={images && images[0]}
-                          alt="author"
-                          height={300}
-                          width={100}
-                        />
+                        {images && images[0] && (
+                          <Image
+                            className="m-4 rounded-md"
+                            src={images[0]}
+                            alt="author"
+                            height={300}
+                            width={100}
+                          />
+                        )}
                       </dd>
                     </dl>
                     <div className="space-y-5 xl:col-span-3">
